@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">GmailBackground</string>
+    <string name="action_settings">Settings</string>
+    <string name="lab_send">Tap the send button</string>
+</resources>

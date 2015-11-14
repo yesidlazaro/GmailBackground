@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">GmailBackgroundLibrary</string>
+    <string name="msg_sending_email">Sending email...</string>
+    <string name="msg_email_sent_successfully">Your message was sent successfully.</string>
+    <string name="msg_error_sending_email">Error sending email, check your connection</string>
+</resources>
