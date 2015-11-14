@@ -9,6 +9,20 @@ BackgroundMail backgroundMail=new BackgroundMail(MainActivity.this);
         backgroundMail.setFormSubject("this is the subject");
         backgroundMail.send();
 ```
+**Gradle via jitpack**
+
+```groovy
+ repositories {
+        // ...
+        maven { url "https://jitpack.io" }
+ }
+```
+```groovy
+ dependencies {
+	        compile 'com.github.yesidlazaro:GmailBackground:1.0'
+	}
+```
+
 **Permissions**
 ```xml
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
