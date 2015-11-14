@@ -34,5 +34,5 @@ BackgroundMail backgroundMail=new BackgroundMail(MainActivity.this);
  ```xml
  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 ```
-Based on https://github.com/kristijandraca/BackgroundMailLibrary 
+Based on https://github.com/kristijandraca/BackgroundMailLibrary (code cleanup, tweaks, and jitpack support)
  
