@@ -56,6 +56,7 @@ public class BackgroundMail {
     }
 
     private BackgroundMail(Builder builder) {
+        mContext = builder.context;
         attachments = builder.attachments;
         username = builder.username;
         password = builder.password;
