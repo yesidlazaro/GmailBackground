@@ -13,6 +13,8 @@ import com.creativityapps.gmailbackgroundlibrary.util.GmailSender;
 import com.creativityapps.gmailbackgroundlibrary.util.Utils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class BackgroundMail {
@@ -74,6 +76,14 @@ public class BackgroundMail {
 
     public void addAttachment(@NonNull String attachment) {
         this.attachments.add(attachment);
+    }
+
+    public void addAttachments(@NonNull List<String> attachments) {
+        this.attachments.addAll(attachments);
+    }
+
+    public void addAttachments(String...attachments) {
+        this.attachments.addAll(Arrays.asList(attachments));
     }
 
     public void send() {
