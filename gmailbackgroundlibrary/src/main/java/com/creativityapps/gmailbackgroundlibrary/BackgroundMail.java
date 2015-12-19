@@ -4,7 +4,9 @@ import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.support.annotation.ArrayRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.text.TextUtils;
 import android.util.Log;
@@ -51,6 +53,29 @@ public class BackgroundMail {
         this.sendingMessage = context.getString(R.string.msg_sending_email);
         this.sendingMessageSuccess = context.getString(R.string.msg_email_sent_successfully);
         this.sendingMessageError=context.getString(R.string.msg_error_sending_email);
+    }
+
+    private BackgroundMail(Builder builder) {
+        attachments = builder.attachments;
+        username = builder.username;
+        password = builder.password;
+        mailto = builder.mailto;
+        subject = builder.subject;
+        body = builder.body;
+        setSendingMessage(builder.sendingMessage);
+        setSendingMessageSuccess(builder.sendingMessageSuccess);
+        setSendingMessageError(builder.sendingMessageError);
+        processVisibility = builder.processVisibility;
+        setOnSuccessCallback(builder.onSuccessCallback);
+        setOnFailCallback(builder.onFailCallback);
+    }
+
+    public static Builder newBuilder(Context context) {
+        return new Builder(context);
+    }
+
+    public static Builder newBuilder(Fragment fragment) {
+        return new Builder(fragment.getActivity().getApplicationContext());
     }
 
     public void setGmailUserName(@NonNull String string) {
@@ -126,7 +151,7 @@ public class BackgroundMail {
         return body;
     }
 
-    public void setSendingMessage(String string) {
+    public void setSendingMessage(@NonNull String string) {
         this.sendingMessage = string;
     }
 
@@ -134,11 +159,12 @@ public class BackgroundMail {
         this.sendingMessage = mContext.getResources().getString(strRes);
     }
 
+    @NonNull
     public String getSendingMessage() {
         return sendingMessage;
     }
 
-    public void setSendingMessageSuccess(String string) {
+    public void setSendingMessageSuccess(@Nullable String string) {
         this.sendingMessageSuccess = string;
     }
 
@@ -146,11 +172,12 @@ public class BackgroundMail {
         this.sendingMessageSuccess = mContext.getResources().getString(strRes);
     }
 
+    @Nullable
     public String getSendingMessageSuccess() {
         return sendingMessageSuccess;
     }
 
-    public void setSendingMessageError(String string) {
+    public void setSendingMessageError(@Nullable String string) {
         this.sendingMessageError = string;
     }
 
@@ -158,6 +185,7 @@ public class BackgroundMail {
         this.sendingMessageError = mContext.getResources().getString(strRes);
     }
 
+    @Nullable
     public String getSeningMessageError() {
         return sendingMessageError;
     }
@@ -190,6 +218,7 @@ public class BackgroundMail {
     public void setOnFailCallback(OnFailCallback onFailCallback) {
         this.onFailCallback = onFailCallback;
     }
+
 
     public void send() {
 
@@ -253,14 +282,14 @@ public class BackgroundMail {
             if (processVisibility) {
                 progressDialog.dismiss();
                 if (result) {
-                    if (sendingMessageSuccess != null) {
+                    if (!TextUtils.isEmpty(sendingMessageSuccess)) {
                         Toast.makeText(mContext, sendingMessageSuccess, Toast.LENGTH_SHORT).show();
                     }
                     if (onSuccessCallback != null) {
                         onSuccessCallback.onSuccess();
                     }
                 }else {
-                    if (sendingMessageError != null) {
+                    if (!TextUtils.isEmpty(sendingMessageError)) {
                         Toast.makeText(mContext, sendingMessageError, Toast.LENGTH_SHORT).show();
                     }
                     if (onFailCallback != null) {
@@ -268,6 +297,149 @@ public class BackgroundMail {
                     }
                 }
             }
+        }
+    }
+
+    public static final class Builder {
+        private Context context;
+        private String username;
+        private String password;
+        private String mailto;
+        private String subject;
+        private String body;
+        private ArrayList<String> attachments = new ArrayList<>();
+        private String sendingMessage;
+        private String sendingMessageSuccess;
+        private String sendingMessageError;
+        private boolean processVisibility;
+        private OnSuccessCallback onSuccessCallback;
+        private OnFailCallback onFailCallback;
+
+        private Builder(Context context) {
+            this.context = context;
+            this.sendingMessage = context.getString(R.string.msg_sending_email);
+            this.sendingMessageSuccess = context.getString(R.string.msg_email_sent_successfully);
+            this.sendingMessageError=context.getString(R.string.msg_error_sending_email);
+        }
+
+        public Builder withUsername(@NonNull String username) {
+            this.username = username;
+            return this;
+        }
+
+        public Builder withUsername(@StringRes int usernameRes) {
+            this.username = context.getResources().getString(usernameRes);
+            return this;
+        }
+
+        public Builder withPassword(@NonNull String password) {
+            this.password = password;
+            return this;
+        }
+
+        public Builder withPassword(@StringRes int passwordRes) {
+            this.password = context.getResources().getString(passwordRes);
+            return this;
+        }
+
+        public Builder withMailto(@NonNull String mailto) {
+            this.mailto = mailto;
+            return this;
+        }
+
+        public Builder withMailto(@StringRes int mailtoRes) {
+            this.mailto = context.getResources().getString(mailtoRes);
+            return this;
+        }
+
+        public Builder withSubject(@NonNull String subject) {
+            this.subject = subject;
+            return this;
+        }
+
+        public Builder withSubject(@StringRes int subjectRes) {
+            this.subject = context.getResources().getString(subjectRes);
+            return this;
+        }
+
+        public Builder withBody(@NonNull String body) {
+            this.body = body;
+            return this;
+        }
+
+        public Builder withBody(@StringRes int bodyRes) {
+            this.body = context.getResources().getString(bodyRes);
+            return this;
+        }
+
+        public Builder withAttachments(@NonNull ArrayList<String> attachments) {
+            this.attachments.addAll(attachments);
+            return this;
+        }
+
+        public Builder withAttachments(String...attachments) {
+            this.attachments.addAll(Arrays.asList(attachments));
+            return this;
+        }
+
+        public Builder withAttachments(@ArrayRes int attachmentsRes) {
+            this.attachments.addAll(Arrays.asList(context.getResources().getStringArray(attachmentsRes)));
+            return this;
+        }
+
+        public Builder withSendingMessage(@NonNull String sendingMessage) {
+            this.sendingMessage = sendingMessage;
+            return this;
+        }
+
+        public Builder withSendingMessage(@StringRes int sendingMessageRes) {
+            this.sendingMessage = context.getResources().getString(sendingMessageRes);
+            return this;
+        }
+
+        public Builder withSendingMessageSuccess(@Nullable String sendingMessageSuccess) {
+            this.sendingMessageSuccess = sendingMessageSuccess;
+            return this;
+        }
+
+        public Builder withSendingMessageSuccess(@StringRes int sendingMessageSuccessRes) {
+            this.sendingMessageSuccess = context.getResources().getString(sendingMessageSuccessRes);
+            return this;
+        }
+
+        public Builder withSendingMessageError(@Nullable String sendingMessageError) {
+            this.sendingMessageError = sendingMessageError;
+            return this;
+        }
+
+        public Builder withSendingMessageError(@StringRes int sendingMessageError) {
+            this.sendingMessageError = context.getResources().getString(sendingMessageError);
+            return this;
+        }
+
+        public Builder withProcessVisibility(boolean processVisibility) {
+            this.processVisibility = processVisibility;
+            return this;
+        }
+
+        public Builder withOnSuccessCallback(OnSuccessCallback onSuccessCallback) {
+            this.onSuccessCallback = onSuccessCallback;
+            return this;
+        }
+
+        public Builder withOnFailCallback(OnFailCallback onFailCallback) {
+            this.onFailCallback = onFailCallback;
+            return this;
+        }
+
+        public BackgroundMail build() {
+            return new BackgroundMail(this);
+        }
+
+        public BackgroundMail send() {
+            BackgroundMail backgroundMail = build();
+            backgroundMail.send();
+            return backgroundMail;
         }
     }
 }
