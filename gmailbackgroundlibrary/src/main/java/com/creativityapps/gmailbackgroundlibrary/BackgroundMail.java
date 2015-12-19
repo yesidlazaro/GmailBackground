@@ -1,5 +1,6 @@
 package com.creativityapps.gmailbackgroundlibrary;
 
+import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -26,6 +27,10 @@ public class BackgroundMail {
     private boolean processVisibility = true;
     private ArrayList<String> attachments = new ArrayList<>();
     private Context mContext;
+
+    public BackgroundMail(Fragment fragment) {
+        this(fragment.getActivity().getApplicationContext());
+    }
 
     public BackgroundMail(Context context) {
         this.mContext = context;
