@@ -253,12 +253,16 @@ public class BackgroundMail {
             if (processVisibility) {
                 progressDialog.dismiss();
                 if (result) {
-                    Toast.makeText(mContext, sendingMessageSuccess, Toast.LENGTH_SHORT).show();
+                    if (sendingMessageSuccess != null) {
+                        Toast.makeText(mContext, sendingMessageSuccess, Toast.LENGTH_SHORT).show();
+                    }
                     if (onSuccessCallback != null) {
                         onSuccessCallback.onSuccess();
                     }
                 }else {
-                    Toast.makeText(mContext, sendingMessageError, Toast.LENGTH_SHORT).show();
+                    if (sendingMessageError != null) {
+                        Toast.makeText(mContext, sendingMessageError, Toast.LENGTH_SHORT).show();
+                    }
                     if (onFailCallback != null) {
                         onFailCallback.onFail();
                     }
@@ -266,5 +270,4 @@ public class BackgroundMail {
             }
         }
     }
-
 }
