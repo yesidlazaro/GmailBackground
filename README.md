@@ -47,7 +47,19 @@ a small library to send a email in background withou user interaction
  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 ```
 Based on https://github.com/kristijandraca/BackgroundMailLibrary (code cleanup, tweaks, and jitpack support)
- 
+
+**Proguard**
+```
+-keep class org.apache.** { *; }
+-dontwarn org.apache.**
+
+-keep class com.sun.mail.** { *; }
+-dontwarn com.sun.mail.**
+
+-keep class java.beans.** { *; }
+-dontwarn java.beans.**
+```
+
 #license
 Copyright 2015 Yesid Lazaro
 
