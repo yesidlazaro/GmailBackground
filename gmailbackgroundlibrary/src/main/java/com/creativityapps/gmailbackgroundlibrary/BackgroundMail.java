@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
@@ -39,11 +40,11 @@ public class BackgroundMail {
         this.sendingMessageError=context.getString(R.string.msg_error_sending_email);
     }
 
-    public void setGmailUserName(String string) {
+    public void setGmailUserName(@NonNull String string) {
         this.username = string;
     }
 
-    public void setGmailPassword(String string) {
+    public void setGmailPassword(@NonNull String string) {
         this.password = string;
     }
 
@@ -51,15 +52,15 @@ public class BackgroundMail {
         this.processVisibility = state;
     }
 
-    public void setMailTo(String string) {
+    public void setMailTo(@NonNull String string) {
         this.mailto = string;
     }
 
-    public void setFormSubject(String string) {
+    public void setFormSubject(@NonNull String string) {
         this.subject = string;
     }
 
-    public void setFormBody(String string) {
+    public void setFormBody(@NonNull String string) {
         this.body = string;
     }
 
