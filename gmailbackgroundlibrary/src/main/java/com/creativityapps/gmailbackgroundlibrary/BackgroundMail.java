@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
@@ -46,36 +47,117 @@ public class BackgroundMail {
         this.username = string;
     }
 
+    public void setGmailUserName(@StringRes int strRes) {
+        this.username = mContext.getResources().getString(strRes);
+    }
+
+    @NonNull
+    public String getGmailUserName() {
+        return username;
+    }
+
     public void setGmailPassword(@NonNull String string) {
         this.password = string;
+    }
+
+    public void setGmailPassword(@StringRes int strRes) {
+        this.password = mContext.getResources().getString(strRes);
+    }
+
+    @NonNull
+    public String getGmailPassword() {
+        return password;
     }
 
     public void showVisibleProgress(boolean state) {
         this.processVisibility = state;
     }
 
+    public boolean isProgressVisible() {
+        return processVisibility;
+    }
+
     public void setMailTo(@NonNull String string) {
         this.mailto = string;
+    }
+
+    public void setMailTo(@StringRes int strRes) {
+        this.mailto = mContext.getResources().getString(strRes);
+    }
+
+    @NonNull
+    public String getMailTo() {
+        return mailto;
     }
 
     public void setFormSubject(@NonNull String string) {
         this.subject = string;
     }
 
+    public void setFormSubject(@StringRes int strRes) {
+        this.subject = mContext.getResources().getString(strRes);
+    }
+
+    @NonNull
+    public String getFormSubject() {
+        return subject;
+    }
+
     public void setFormBody(@NonNull String string) {
         this.body = string;
+    }
+
+    public void setFormBody(@StringRes int strRes) {
+        this.body = mContext.getResources().getString(strRes);
+    }
+
+    @NonNull
+    public String getFormBody() {
+        return body;
     }
 
     public void setSendingMessage(String string) {
         this.sendingMessage = string;
     }
 
+    public void setSendingMessage(@StringRes int strRes) {
+        this.sendingMessage = mContext.getResources().getString(strRes);
+    }
+
+    public String getSendingMessage() {
+        return sendingMessage;
+    }
+
     public void setSendingMessageSuccess(String string) {
         this.sendingMessageSuccess = string;
     }
 
+    public void setSendingMessageSuccess(@StringRes int strRes) {
+        this.sendingMessageSuccess = mContext.getResources().getString(strRes);
+    }
+
+    public String getSendingMessageSuccess() {
+        return sendingMessageSuccess;
+    }
+
+    public void setSendingMessageError(String string) {
+        this.sendingMessageError = string;
+    }
+
+    public void setSendingMessageError(@StringRes int strRes) {
+        this.sendingMessageError = mContext.getResources().getString(strRes);
+    }
+
+    public String getSeningMessageError() {
+        return sendingMessageError;
+    }
+
     public void addAttachment(@NonNull String attachment) {
         this.attachments.add(attachment);
+    }
+
+    public void addAttachment(@StringRes int strRes) {
+        this.attachments.add(mContext.getResources().getString(strRes));
     }
 
     public void addAttachments(@NonNull List<String> attachments) {
@@ -84,6 +166,11 @@ public class BackgroundMail {
 
     public void addAttachments(String...attachments) {
         this.attachments.addAll(Arrays.asList(attachments));
+    }
+
+    @NonNull
+    public List<String> getAttachments() {
+        return attachments;
     }
 
     public void send() {
