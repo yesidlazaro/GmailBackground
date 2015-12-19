@@ -31,6 +31,16 @@ public class BackgroundMail {
     private boolean processVisibility = true;
     private ArrayList<String> attachments = new ArrayList<>();
     private Context mContext;
+    private OnSuccessCallback onSuccessCallback;
+    private OnFailCallback onFailCallback;
+
+    public interface OnSuccessCallback {
+        void onSuccess();
+    }
+
+    public interface OnFailCallback {
+        void onFail();
+    }
 
     public BackgroundMail(Fragment fragment) {
         this(fragment.getActivity().getApplicationContext());
@@ -173,6 +183,14 @@ public class BackgroundMail {
         return attachments;
     }
 
+    public void setOnSuccessCallback(OnSuccessCallback onSuccessCallback) {
+        this.onSuccessCallback = onSuccessCallback;
+    }
+
+    public void setOnFailCallback(OnFailCallback onFailCallback) {
+        this.onFailCallback = onFailCallback;
+    }
+
     public void send() {
 
         if (TextUtils.isEmpty(username)) {
@@ -235,10 +253,15 @@ public class BackgroundMail {
             if (processVisibility) {
                 progressDialog.dismiss();
                 if (result) {
-                    Toast.makeText(mContext, sendingMessageSuccess,
-                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, sendingMessageSuccess, Toast.LENGTH_SHORT).show();
+                    if (onSuccessCallback != null) {
+                        onSuccessCallback.onSuccess();
+                    }
                 }else {
                     Toast.makeText(mContext, sendingMessageError, Toast.LENGTH_SHORT).show();
+                    if (onFailCallback != null) {
+                        onFailCallback.onFail();
+                    }
                 }
             }
         }
