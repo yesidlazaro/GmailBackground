@@ -72,8 +72,8 @@ public class BackgroundMail {
         this.sendingMessageSuccess = string;
     }
 
-    public void setAttachment(String attachments) {
-        this.attachments.add(attachments);
+    public void addAttachment(@NonNull String attachment) {
+        this.attachments.add(attachment);
     }
 
     public void send() {
