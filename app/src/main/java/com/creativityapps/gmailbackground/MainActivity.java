@@ -51,12 +51,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void sendTestEmail(){
-        BackgroundMail backgroundMail=new BackgroundMail(MainActivity.this);
-        backgroundMail.setGmailUserName("username@gmail.com");
-        backgroundMail.setGmailPassword("password12345");
-        backgroundMail.setMailTo("toemail@gmail.com");
-        backgroundMail.setFormBody("this is the body");
-        backgroundMail.setFormSubject("this is the subject");
-        backgroundMail.send();
+        BackgroundMail.newBuilder(this)
+                .withUsername("username@gmail.com")
+                .withPassword("password12345")
+                .withMailto("toemail@gmail.com")
+                .withSubject("this is the subject")
+                .withBody("this is the body")
+                .withOnSuccessCallback(new BackgroundMail.OnSuccessCallback() {
+                    @Override
+                    public void onSuccess() {
+                        //do some magic
+                    }
+                })
+                .withOnFailCallback(new BackgroundMail.OnFailCallback() {
+                    @Override
+                    public void onFail() {
+                        //do some magic
+                    }
+                })
+                .send();
     }
 }
