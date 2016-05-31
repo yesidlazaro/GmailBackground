@@ -312,7 +312,7 @@ public class BackgroundMail {
         private String sendingMessage;
         private String sendingMessageSuccess;
         private String sendingMessageError;
-        private boolean processVisibility;
+        private boolean processVisibility = true;
         private OnSuccessCallback onSuccessCallback;
         private OnFailCallback onFailCallback;
 
