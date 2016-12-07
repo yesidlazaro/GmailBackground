@@ -5,6 +5,7 @@ a small library to send a email in background withou user interaction
                 .withUsername("username@gmail.com")
                 .withPassword("password12345")
                 .withMailto("toemail@gmail.com")
+                .withType(BackgroundMail.TYPE_PLAIN)
                 .withSubject("this is the subject")
                 .withBody("this is the body")
                 .withOnSuccessCallback(new BackgroundMail.OnSuccessCallback() {

@@ -37,6 +37,9 @@ public class BackgroundMail {
     private OnSuccessCallback onSuccessCallback;
     private OnFailCallback onFailCallback;
 
+    public final static String TYPE_PLAIN = "text/plain";
+    public final static String TYPE_HTML = "text/html";
+
     public interface OnSuccessCallback {
         void onSuccess();
     }
@@ -323,7 +326,7 @@ public class BackgroundMail {
         private String mailto;
         private String subject;
         private String body;
-        private String type = "text/plain";
+        private String type = BackgroundMail.TYPE_PLAIN;
         private ArrayList<String> attachments = new ArrayList<>();
         private String sendingMessage;
         private String sendingMessageSuccess;
@@ -379,6 +382,7 @@ public class BackgroundMail {
             return this;
         }
 
+        //set email mime type
         public Builder withType(@NonNull String type) {
             this.type = type;
             return this;
