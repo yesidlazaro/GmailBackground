@@ -32,7 +32,7 @@ a small library to send a email in background withou user interaction
 ```
 ```groovy
  dependencies {
-	        compile 'com.github.yesidlazaro:GmailBackground:1.1'
+	        compile 'com.github.yesidlazaro:GmailBackground:1.2.0'
 	}
 ```
 
