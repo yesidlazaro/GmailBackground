@@ -27,6 +27,7 @@ public class BackgroundMail {
     private String mailto;
     private String subject;
     private String body;
+    private String type;
     private String sendingMessage;
     private String sendingMessageSuccess;
     private String sendingMessageError;
@@ -35,6 +36,9 @@ public class BackgroundMail {
     private Context mContext;
     private OnSuccessCallback onSuccessCallback;
     private OnFailCallback onFailCallback;
+
+    public final static String TYPE_PLAIN = "text/plain";
+    public final static String TYPE_HTML = "text/html";
 
     public interface OnSuccessCallback {
         void onSuccess();
@@ -63,6 +67,7 @@ public class BackgroundMail {
         mailto = builder.mailto;
         subject = builder.subject;
         body = builder.body;
+        type = builder.type;
         setSendingMessage(builder.sendingMessage);
         setSendingMessageSuccess(builder.sendingMessageSuccess);
         setSendingMessageError(builder.sendingMessageError);
@@ -103,6 +108,19 @@ public class BackgroundMail {
     @NonNull
     public String getGmailPassword() {
         return password;
+    }
+
+    public void setType(@NonNull String string) {
+        this.type = string;
+    }
+
+    public void setType(@StringRes int strRes) {
+        this.type = mContext.getResources().getString(strRes);
+    }
+
+    @NonNull
+    public String getType() {
+        return type;
     }
 
     public void showVisibleProgress(boolean state) {
@@ -269,7 +287,7 @@ public class BackgroundMail {
                         }
                     }
                 }
-                sender.sendMail(subject, body, username, mailto);
+                sender.sendMail(subject, body, username, mailto, type);
             } catch (Exception e) {
                 e.printStackTrace();
                 return false;
@@ -308,6 +326,7 @@ public class BackgroundMail {
         private String mailto;
         private String subject;
         private String body;
+        private String type = BackgroundMail.TYPE_PLAIN;
         private ArrayList<String> attachments = new ArrayList<>();
         private String sendingMessage;
         private String sendingMessageSuccess;
@@ -360,6 +379,17 @@ public class BackgroundMail {
 
         public Builder withSubject(@StringRes int subjectRes) {
             this.subject = context.getResources().getString(subjectRes);
+            return this;
+        }
+
+        //set email mime type
+        public Builder withType(@NonNull String type) {
+            this.type = type;
+            return this;
+        }
+
+        public Builder withType(@StringRes int typeRes) {
+            this.type = context.getResources().getString(typeRes);
             return this;
         }
 
