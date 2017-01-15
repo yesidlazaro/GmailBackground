@@ -304,16 +304,21 @@ public class BackgroundMail {
                     if (!TextUtils.isEmpty(sendingMessageSuccess)) {
                         Toast.makeText(mContext, sendingMessageSuccess, Toast.LENGTH_SHORT).show();
                     }
-                    if (onSuccessCallback != null) {
-                        onSuccessCallback.onSuccess();
-                    }
+
                 }else {
                     if (!TextUtils.isEmpty(sendingMessageError)) {
                         Toast.makeText(mContext, sendingMessageError, Toast.LENGTH_SHORT).show();
                     }
-                    if (onFailCallback != null) {
-                        onFailCallback.onFail();
-                    }
+
+                }
+            }
+            if (result) {
+                if (onSuccessCallback != null) {
+                    onSuccessCallback.onSuccess();
+                }
+            } else {
+                if (onFailCallback != null) {
+                    onFailCallback.onFail();
                 }
             }
         }
