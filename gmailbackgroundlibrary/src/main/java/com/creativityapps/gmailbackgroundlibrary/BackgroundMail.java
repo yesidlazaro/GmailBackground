@@ -298,22 +298,23 @@ public class BackgroundMail {
         @Override
         protected void onPostExecute(Boolean result) {
             super.onPostExecute(result);
-            if (processVisibility) {
+            if (progressDialog != null && progressDialog.isShowing()) {
                 progressDialog.dismiss();
-                if (result) {
-                    if (!TextUtils.isEmpty(sendingMessageSuccess)) {
-                        Toast.makeText(mContext, sendingMessageSuccess, Toast.LENGTH_SHORT).show();
-                    }
-                    if (onSuccessCallback != null) {
-                        onSuccessCallback.onSuccess();
-                    }
-                }else {
-                    if (!TextUtils.isEmpty(sendingMessageError)) {
-                        Toast.makeText(mContext, sendingMessageError, Toast.LENGTH_SHORT).show();
-                    }
-                    if (onFailCallback != null) {
-                        onFailCallback.onFail();
-                    }
+            }
+
+            if (result) {
+                if (processVisibility && !TextUtils.isEmpty(sendingMessageSuccess)) {
+                    Toast.makeText(mContext, sendingMessageSuccess, Toast.LENGTH_SHORT).show();
+                }
+                if (onSuccessCallback != null) {
+                    onSuccessCallback.onSuccess();
+                }
+            } else {
+                if (processVisibility && !TextUtils.isEmpty(sendingMessageError)) {
+                    Toast.makeText(mContext, sendingMessageError, Toast.LENGTH_SHORT).show();
+                }
+                if (onFailCallback != null) {
+                    onFailCallback.onFail();
                 }
             }
         }
