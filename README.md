@@ -4,6 +4,7 @@ a small library to send a email in background withou user interaction
         BackgroundMail.newBuilder(this)
                 .withUsername("username@gmail.com")
                 .withPassword("password12345")
+                .withSenderName("Your sender name")
                 .withMailto("toemail@gmail.com")
                 .withType(BackgroundMail.TYPE_PLAIN)
                 .withSubject("this is the subject")

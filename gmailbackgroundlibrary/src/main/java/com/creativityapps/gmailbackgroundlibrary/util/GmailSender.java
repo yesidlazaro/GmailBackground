@@ -1,5 +1,7 @@
 package com.creativityapps.gmailbackgroundlibrary.util;
 
+import android.text.TextUtils;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -54,10 +56,12 @@ public class GmailSender extends javax.mail.Authenticator {
         return new PasswordAuthentication(user, password);
     }
 
-    public synchronized void sendMail(String subject, String body, String sender, String recipients, String type) throws Exception {
+    public synchronized void sendMail(String subject, String body, String senderEmail, String senderName, String recipients, String type) throws Exception {
         MimeMessage message = new MimeMessage(session);
         DataHandler handler = new DataHandler(new ByteArrayDataSource(body.getBytes(), type));
-        message.setSender(new InternetAddress(sender));
+        message.setFrom(TextUtils.isEmpty(senderName) ?
+                new InternetAddress(senderEmail) :
+                new InternetAddress(senderEmail, senderName));
         message.setSubject(subject);
 
         message.setText(body);
