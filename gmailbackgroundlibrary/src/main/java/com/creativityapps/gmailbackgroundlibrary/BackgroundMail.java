@@ -24,6 +24,7 @@ public class BackgroundMail {
     String TAG = "BackgroundMail";
     private String username;
     private String password;
+    private String senderName;
     private String mailto;
     private String subject;
     private String body;
@@ -64,6 +65,7 @@ public class BackgroundMail {
         attachments = builder.attachments;
         username = builder.username;
         password = builder.password;
+        senderName = builder.senderName;
         mailto = builder.mailto;
         subject = builder.subject;
         body = builder.body;
@@ -287,7 +289,7 @@ public class BackgroundMail {
                         }
                     }
                 }
-                sender.sendMail(subject, body, username, mailto, type);
+                sender.sendMail(subject, body, username, senderName, mailto, type);
             } catch (Exception e) {
                 e.printStackTrace();
                 return false;
@@ -323,6 +325,7 @@ public class BackgroundMail {
         private Context context;
         private String username;
         private String password;
+        private String senderName;
         private String mailto;
         private String subject;
         private String body;
@@ -359,6 +362,11 @@ public class BackgroundMail {
 
         public Builder withPassword(@StringRes int passwordRes) {
             this.password = context.getResources().getString(passwordRes);
+            return this;
+        }
+
+        public Builder withSenderName(@NonNull String senderName) {
+            this.senderName = senderName;
             return this;
         }
 

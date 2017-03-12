@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         BackgroundMail.newBuilder(this)
                 .withUsername("username@gmail.com")
                 .withPassword("password12345")
+                .withSenderName("Your sender name")
                 .withMailto("toemail@gmail.com")
                 .withSubject("this is the subject")
                 .withBody("this is the body")
