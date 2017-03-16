@@ -1,5 +1,5 @@
 # GmailBackground
-a small library to send a email in background withou user interaction 
+A small library to send a email in background without user interaction 
 ```java
         BackgroundMail.newBuilder(this)
                 .withUsername("username@gmail.com")
@@ -21,6 +21,10 @@ a small library to send a email in background withou user interaction
                     }
                 })
                 .send();
+```
+If you have the feature for user to change sender `username` and `password`. You should ignore use default session. See more detail [here](http://docs.oracle.com/javaee/6/api/javax/mail/Session.html#getDefaultInstance)
+```java
+.withUseDefaultSession(false)
 ```
 **Gradle via jitpack**
 
