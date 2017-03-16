@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 .withMailto("toemail@gmail.com")
                 .withSubject("this is the subject")
                 .withBody("this is the body")
+                .withUseDefaultSession(false)
                 .withOnSuccessCallback(new BackgroundMail.OnSuccessCallback() {
                     @Override
                     public void onSuccess() {
