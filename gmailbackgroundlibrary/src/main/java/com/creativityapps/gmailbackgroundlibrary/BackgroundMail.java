@@ -238,9 +238,7 @@ public class BackgroundMail {
         this.onFailCallback = onFailCallback;
     }
 
-
     public void send() {
-
         if (TextUtils.isEmpty(username)) {
             throw new IllegalArgumentException("You didn't set a Gmail username");
         }
@@ -250,15 +248,10 @@ public class BackgroundMail {
         if (TextUtils.isEmpty(mailto)) {
             throw new IllegalArgumentException("You didn't set a Gmail recipient");
         }
-        if (TextUtils.isEmpty(body)) {
-            throw new IllegalArgumentException("You didn't set a body");
-        }
-        if (TextUtils.isEmpty(subject)) {
-            throw new IllegalArgumentException("You didn't set a subject");
-        }
         if (!Utils.isNetworkAvailable(mContext)) {
             Log.d(TAG, "you need internet connection to send the email");
         }
+
         new SendEmailTask().execute();
     }
 
@@ -324,8 +317,8 @@ public class BackgroundMail {
         private String username;
         private String password;
         private String mailto;
-        private String subject;
-        private String body;
+        private String subject = "";
+        private String body = "";
         private String type = BackgroundMail.TYPE_PLAIN;
         private ArrayList<String> attachments = new ArrayList<>();
         private String sendingMessage;
