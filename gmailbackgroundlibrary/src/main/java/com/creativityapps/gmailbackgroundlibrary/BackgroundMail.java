@@ -275,8 +275,8 @@ public class BackgroundMail {
         if (TextUtils.isEmpty(password)) {
             throw new IllegalArgumentException("You didn't set a Gmail password");
         }
-        if (TextUtils.isEmpty(mailto)) {
-            throw new IllegalArgumentException("You didn't set a Gmail recipient");
+        if (TextUtils.isEmpty(mailTo) && TextUtils.isEmpty(mailCc) && TextUtils.isEmpty(mailBcc)) {
+            throw new IllegalArgumentException("You didn't set any recipient addresses");
         }
         if (!Utils.isNetworkAvailable(mContext)) {
             Log.d(TAG, "you need internet connection to send the email");
