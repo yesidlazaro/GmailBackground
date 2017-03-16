@@ -58,7 +58,7 @@ public class BackgroundMail {
         this.mContext = context;
         this.sendingMessage = context.getString(R.string.msg_sending_email);
         this.sendingMessageSuccess = context.getString(R.string.msg_email_sent_successfully);
-        this.sendingMessageError=context.getString(R.string.msg_error_sending_email);
+        this.sendingMessageError = context.getString(R.string.msg_error_sending_email);
     }
 
     private BackgroundMail(Builder builder) {
@@ -251,7 +251,7 @@ public class BackgroundMail {
         this.attachments.addAll(attachments);
     }
 
-    public void addAttachments(String...attachments) {
+    public void addAttachments(String... attachments) {
         this.attachments.addAll(Arrays.asList(attachments));
     }
 
@@ -364,7 +364,7 @@ public class BackgroundMail {
             this.context = context;
             this.sendingMessage = context.getString(R.string.msg_sending_email);
             this.sendingMessageSuccess = context.getString(R.string.msg_email_sent_successfully);
-            this.sendingMessageError=context.getString(R.string.msg_error_sending_email);
+            this.sendingMessageError = context.getString(R.string.msg_error_sending_email);
         }
 
         public Builder withUsername(@NonNull String username) {
@@ -453,7 +453,7 @@ public class BackgroundMail {
             return this;
         }
 
-        public Builder withAttachments(String...attachments) {
+        public Builder withAttachments(String... attachments) {
             this.attachments.addAll(Arrays.asList(attachments));
             return this;
         }

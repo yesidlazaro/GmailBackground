@@ -59,12 +59,12 @@ public class GmailSender extends javax.mail.Authenticator {
     public synchronized void sendMail(String subject, String body, String sender, String mailTo,
                                       String mailCc, String mailBcc, String type) throws Exception {
         MimeMessage message = new MimeMessage(session);
-        DataHandler handler = new DataHandler(new ByteArrayDataSource(body.getBytes(), type));
         message.setSender(new InternetAddress(sender));
         message.setSubject(subject);
 
-        message.setText(body);
+        DataHandler handler = new DataHandler(new ByteArrayDataSource(body.getBytes(), type));
         message.setDataHandler(handler);
+        message.setText(body);
         if (_multipart.getCount() > 0) {
             BodyPart messageBodyPart = new MimeBodyPart();
             messageBodyPart.setText(body);
@@ -128,10 +128,7 @@ public class GmailSender extends javax.mail.Authenticator {
         }
 
         public String getContentType() {
-            if (type == null)
-                return "application/octet-stream";
-            else
-                return type;
+            return type != null ? type : "application/octet-stream";
         }
 
         public InputStream getInputStream() throws IOException {
