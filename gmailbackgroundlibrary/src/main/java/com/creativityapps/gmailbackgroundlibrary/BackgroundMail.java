@@ -24,7 +24,9 @@ public class BackgroundMail {
     String TAG = "BackgroundMail";
     private String username;
     private String password;
-    private String mailto;
+    private String mailTo;
+    private String mailCc;
+    private String mailBcc;
     private String subject;
     private String body;
     private String type;
@@ -64,7 +66,9 @@ public class BackgroundMail {
         attachments = builder.attachments;
         username = builder.username;
         password = builder.password;
-        mailto = builder.mailto;
+        mailTo = builder.mailTo;
+        mailCc = builder.mailCc;
+        mailBcc = builder.mailBcc;
         subject = builder.subject;
         body = builder.body;
         type = builder.type;
@@ -132,41 +136,67 @@ public class BackgroundMail {
     }
 
     public void setMailTo(@NonNull String string) {
-        this.mailto = string;
+        this.mailTo = string;
     }
 
     public void setMailTo(@StringRes int strRes) {
-        this.mailto = mContext.getResources().getString(strRes);
+        this.mailTo = mContext.getResources().getString(strRes);
     }
 
     @NonNull
     public String getMailTo() {
-        return mailto;
+        return mailTo;
     }
 
-    public void setFormSubject(@NonNull String string) {
+    public void setMailCc(@NonNull String string) {
+        this.mailCc = string;
+    }
+
+    public void setMailCc(@StringRes int strRes) {
+        this.mailCc = mContext.getResources().getString(strRes);
+    }
+
+    @NonNull
+    public String getMailCc() {
+        return mailCc;
+    }
+
+    public void setMailBcc(@NonNull String string) {
+        this.mailBcc = string;
+    }
+
+    public void setMailBcc(@StringRes int strRes) {
+        this.mailBcc = mContext.getResources().getString(strRes);
+    }
+
+    @NonNull
+    public String getMailBcc() {
+        return mailBcc;
+    }
+
+    public void setSubject(@NonNull String string) {
         this.subject = string;
     }
 
-    public void setFormSubject(@StringRes int strRes) {
+    public void setSubject(@StringRes int strRes) {
         this.subject = mContext.getResources().getString(strRes);
     }
 
     @NonNull
-    public String getFormSubject() {
+    public String getSubject() {
         return subject;
     }
 
-    public void setFormBody(@NonNull String string) {
+    public void setBody(@NonNull String string) {
         this.body = string;
     }
 
-    public void setFormBody(@StringRes int strRes) {
+    public void setBody(@StringRes int strRes) {
         this.body = mContext.getResources().getString(strRes);
     }
 
     @NonNull
-    public String getFormBody() {
+    public String getBody() {
         return body;
     }
 
@@ -280,7 +310,7 @@ public class BackgroundMail {
                         }
                     }
                 }
-                sender.sendMail(subject, body, username, mailto, type);
+                sender.sendMail(subject, body, username, mailTo, mailCc, mailBcc, type);
             } catch (Exception e) {
                 e.printStackTrace();
                 return false;
@@ -300,7 +330,7 @@ public class BackgroundMail {
                     if (onSuccessCallback != null) {
                         onSuccessCallback.onSuccess();
                     }
-                }else {
+                } else {
                     if (!TextUtils.isEmpty(sendingMessageError)) {
                         Toast.makeText(mContext, sendingMessageError, Toast.LENGTH_SHORT).show();
                     }
@@ -316,7 +346,9 @@ public class BackgroundMail {
         private Context context;
         private String username;
         private String password;
-        private String mailto;
+        private String mailTo;
+        private String mailCc;
+        private String mailBcc;
         private String subject = "";
         private String body = "";
         private String type = BackgroundMail.TYPE_PLAIN;
@@ -355,13 +387,33 @@ public class BackgroundMail {
             return this;
         }
 
-        public Builder withMailto(@NonNull String mailto) {
-            this.mailto = mailto;
+        public Builder withMailTo(@NonNull String mailTo) {
+            this.mailTo = mailTo;
             return this;
         }
 
-        public Builder withMailto(@StringRes int mailtoRes) {
-            this.mailto = context.getResources().getString(mailtoRes);
+        public Builder withMailTo(@StringRes int mailToRes) {
+            this.mailTo = context.getResources().getString(mailToRes);
+            return this;
+        }
+
+        public Builder withMailCc(@NonNull String mailCc) {
+            this.mailCc = mailCc;
+            return this;
+        }
+
+        public Builder withMailCc(@StringRes int mailCcRes) {
+            this.mailCc = context.getResources().getString(mailCcRes);
+            return this;
+        }
+
+        public Builder withMailBcc(@NonNull String mailBcc) {
+            this.mailBcc = mailBcc;
+            return this;
+        }
+
+        public Builder withMailBcc(@StringRes int mailBccRes) {
+            this.mailBcc = context.getResources().getString(mailBccRes);
             return this;
         }
 

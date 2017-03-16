@@ -1,5 +1,7 @@
 package com.creativityapps.gmailbackgroundlibrary.util;
 
+import android.text.TextUtils;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -54,7 +56,8 @@ public class GmailSender extends javax.mail.Authenticator {
         return new PasswordAuthentication(user, password);
     }
 
-    public synchronized void sendMail(String subject, String body, String sender, String recipients, String type) throws Exception {
+    public synchronized void sendMail(String subject, String body, String sender, String mailTo,
+                                      String mailCc, String mailBcc, String type) throws Exception {
         MimeMessage message = new MimeMessage(session);
         DataHandler handler = new DataHandler(new ByteArrayDataSource(body.getBytes(), type));
         message.setSender(new InternetAddress(sender));
@@ -68,12 +71,32 @@ public class GmailSender extends javax.mail.Authenticator {
             _multipart.addBodyPart(messageBodyPart);
             message.setContent(_multipart);
         }
-        if (recipients.indexOf(',') > 0)
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipients));
-        else
-            message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipients));
-        Transport.send(message);
 
+        if (!TextUtils.isEmpty(mailTo)) {
+            if (mailTo.indexOf(',') > 0) {
+                message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(mailTo));
+            } else {
+                message.setRecipient(Message.RecipientType.TO, new InternetAddress(mailTo));
+            }
+        }
+
+        if (!TextUtils.isEmpty(mailCc)) {
+            if (mailCc.indexOf(',') > 0) {
+                message.setRecipients(Message.RecipientType.CC, InternetAddress.parse(mailCc));
+            } else {
+                message.setRecipient(Message.RecipientType.CC, new InternetAddress(mailCc));
+            }
+        }
+
+        if (!TextUtils.isEmpty(mailBcc)) {
+            if (mailBcc.indexOf(',') > 0) {
+                message.setRecipients(Message.RecipientType.BCC, InternetAddress.parse(mailBcc));
+            } else {
+                message.setRecipient(Message.RecipientType.BCC, new InternetAddress(mailBcc));
+            }
+        }
+
+        Transport.send(message);
     }
 
     public void addAttachment(String filename) throws Exception {

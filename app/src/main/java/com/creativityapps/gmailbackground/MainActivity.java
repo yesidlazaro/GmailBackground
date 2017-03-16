@@ -50,11 +50,13 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void sendTestEmail(){
+    private void sendTestEmail() {
         BackgroundMail.newBuilder(this)
                 .withUsername("username@gmail.com")
                 .withPassword("password12345")
-                .withMailto("toemail@gmail.com")
+                .withMailTo("to-email@gmail.com")
+                .withMailCc("cc-email@gmail.com")
+                .withMailBcc("bcc-email@gmail.com")
                 .withSubject("this is the subject")
                 .withBody("this is the body")
                 .withOnSuccessCallback(new BackgroundMail.OnSuccessCallback() {
