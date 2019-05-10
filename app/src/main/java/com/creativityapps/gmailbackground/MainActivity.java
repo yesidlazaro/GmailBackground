@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 .withMailBcc("bcc-email@gmail.com")
                 .withSubject("this is the subject")
                 .withBody("this is the body")
+                .withUseDefaultSession(false)
                 .withOnSuccessCallback(new BackgroundMail.OnSuccessCallback() {
                     @Override
                     public void onSuccess() {
